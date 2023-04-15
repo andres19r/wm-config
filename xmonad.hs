@@ -12,6 +12,8 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Actions.CycleWS
+import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.SetWMName
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -20,7 +22,10 @@ import qualified Data.Map        as M
 -- certain contrib modules.
 --
 myTerminal :: [Char]
-myTerminal      = "alacritty"
+myTerminal = "alacritty"
+
+myEmacs :: [Char]
+myEmacs = "emacsclient -c -a 'emacs' "
 
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
@@ -33,7 +38,7 @@ myClickJustFocuses = False
 -- Width of the window border in pixels.
 --
 myBorderWidth :: Dimension
-myBorderWidth   = 1
+myBorderWidth = 1
 
 -- modMask lets you specify which modkey you want to use. The default
 -- is mod1Mask ("left alt").  You may also consider using mod3Mask
@@ -41,7 +46,7 @@ myBorderWidth   = 1
 -- "windows key" is usually mod4Mask.
 --
 myModMask :: KeyMask
-myModMask       = mod4Mask
+myModMask = mod4Mask
 
 -- The default number of workspaces (virtual screens) and their names.
 -- By default we use numeric strings, but any string may be used as a
@@ -53,12 +58,12 @@ myModMask       = mod4Mask
 -- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
 --
 myWorkspaces :: [[Char]]
-myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
+myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
 
 -- Border colors for unfocused and focused windows, respectively.
 --
 myNormalBorderColor :: [Char]
-myNormalBorderColor  = "#000000"
+myNormalBorderColor = "#000000"
 myFocusedBorderColor :: [Char]
 myFocusedBorderColor = "#0000ff"
 
@@ -66,24 +71,19 @@ myFocusedBorderColor = "#0000ff"
 -- Key bindings. Add, modify or remove key bindings here.
 --
 myKeys =
-  -- (subtitle "Custom Keys":) $ mkNamedKeymap c $
-
-    [("M-<Return>",  spawn "alacritty")
-
+  -- launch terminal
+    [("M-<Return>",  spawn myTerminal)
     -- launch dmenu
     , ("M-p", spawn "rofi -show run")
-
     -- launch firefox
     , ("M-b", spawn "firefox")
-
     -- launch slock
     , ("M-S-l", spawn "slock")
-
     -- launch emacs
     , ("M-o", spawn "emacsclient -c -a 'emacs'")
-
     -- launch file manager
-    , ("M-f", spawn "nautilus")
+    , ("M-e", spawn "nautilus")
+    -- Volume/Media
     , ("<XF86AudioLowerVolume>", spawn "amixer -q sset Master 5%-")
     , ("<XF86AudioRaiseVolume>", spawn "amixer -q sset Master 5%+")
     , ("<XF86AudioMute>", spawn "amixer set Master toggle")
@@ -92,77 +92,60 @@ myKeys =
     , ("<XF86AudioPrev>", spawn "playerctl previous")
     -- launch gmrun
     , ("M-S-p", spawn "gmrun")
-
     -- close focused window
     , ("M-q", kill)
-
      -- Rotate through the available layout algorithms
     , ("M-<Space>", sendMessage NextLayout)
-
     --  Reset the layouts on the current workspace to default
-    -- , ("M-S-<Space>", setLayout $ XMonad.layoutHook conf)
-
+    -- , ("M-S-<Space>", setLayout $ XMonad.layoutHook myConfig)
     -- Resize viewed windows to the correct size
     , ("M-n", refresh)
-
     -- Move focus to the next window
     , ("M-<Tab>", windows W.focusDown)
-
     -- Move focus to the next window
     , ("M1-<Tab>", windows W.focusDown)
-
     -- Move focus to the next window
     , ("M-j", windows W.focusDown)
-
     -- Move focus to the previous window
     , ("M-k", windows W.focusUp  )
-
     -- Move focus to the previous window
     , ("M-S-<Tab>", windows W.focusUp  )
-
     -- Move focus to the master window
     , ("M-m", windows W.focusMaster  )
-
     -- Swap the focused window and the master window
     , ("M-S-<Return>", windows W.swapMaster)
-
     -- Swap the focused window with the next window
     , ("M-S-j", windows W.swapDown  )
-
     -- Swap the focused window with the previous window
     , ("M-S-k", windows W.swapUp    )
-
     -- Shrink the master area
     , ("M-h", sendMessage Shrink)
-
     -- Expand the master area
     , ("M-l", sendMessage Expand)
-
     -- Push window back into tiling
     , ("M-t", withFocused $ windows . W.sink)
-
     -- Increment the number of windows in the master area
     , ("M-]", sendMessage (IncMasterN 1))
-
-
     -- Deincrement the number of windows in the master area
     , ("M-[", sendMessage (IncMasterN (-1)))
-
     -- Toggle the status bar gap
     -- Use this binding with avoidStruts from Hooks.ManageDocks.
     -- See also the statusBar function from Hooks.DynamicLog.
-    --
-    -- , ((modm              , xK_b     ), sendMessage ToggleStruts)
-
+    -- , ("M-b", sendMessage ToggleStruts)
     -- Quit xmonad
     , ("M-S-q", io (exitWith ExitSuccess))
-
     -- Restart xmonad
     , ("M-c", spawn "pkill polybar; xmonad --recompile; xmonad --restart")
-
-    ,("M-.", nextScreen)
-
-    ,("M-,", prevScreen)
+    -- Switch focus to next monitor
+    , ("M-.", nextScreen)
+    -- Swi tch focus to prev monitor
+    , ("M-,", prevScreen)
+    -- Redshift
+    , ("M-r", spawn "redshift -O 2400")
+    , ("M-S-r", spawn "redshift -x")
+    -- Scrot
+    , ("M-s", spawn "scrot '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f'")
+    , ("M-S-s", spawn "scrot -s '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f'")
     ]
     ++
 
@@ -175,15 +158,6 @@ myKeys =
         , (otherModMasks, action) <- [ ("", windows . W.greedyView) -- or W.view
                                      , ("S-", windows . W.shift)]
     ]
-
-    --
-    -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
-    -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
-    --
-    -- [(("M", key), screenWorkspace sc >>= flip whenJust (windows . f))
-    --     | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
-    --     , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
-
 
 ------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
@@ -246,8 +220,20 @@ myLayout = avoidStruts (tiled  ||| noBorders Full)
 --
 myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat
+    , className =? "confirm"         --> doFloat
+    , className =? "file_progress"   --> doFloat
+    , className =? "dialog"          --> doFloat
+    , className =? "download"        --> doFloat
+    , className =? "error"           --> doFloat
+    , className =? "Gimp"            --> doFloat
+    , className =? "notification"    --> doFloat
+    , className =? "pinentry-gtk-2"  --> doFloat
+    , className =? "splash"          --> doFloat
+    , className =? "toolbar"         --> doFloat
     , className =? "Gimp"           --> doFloat
     , resource  =? "desktop_window" --> doIgnore
+    , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
+    , isFullscreen -->  doFullFloat
     , resource  =? "kdesktop"       --> doIgnore ]
 
 ------------------------------------------------------------------------
@@ -279,13 +265,14 @@ myLogHook = dynamicLog
 --
 -- By default, do nothing.
 myStartupHook = do
-  spawnOnce "feh --bg-fill $(find ~/Pictures/Wallpapers -type f | shuf -n 1) &"
+  spawnOnce "feh --randomize --bg-fill ~/Pictures/Wallpapers/*"
   spawnOnce "picom &"
   spawnOnce "xsetroot -cursor_name left_ptr &"
   spawnOnce "/usr/bin/emacs --daemon &"
   spawnOnce "unclutter -idle 1 -root &"
   spawnOnce "nm-applet &"
   spawn "polybar -c ~/.config/polybar/config.ini"
+  setWMName "LG3D"
 
 
 ------------------------------------------------------------------------
@@ -294,8 +281,6 @@ myStartupHook = do
 -- Run xmonad with the settings you specify. No need to modify this.
 --
 main = do
-  -- xmproc <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
-  -- xmproc <- spawnPipe "polybar -c ~/.config/polybar/config.ini"
   xmonad $ docks def {
       -- simple stuff
         terminal           = myTerminal,
