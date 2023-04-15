@@ -76,13 +76,13 @@ myKeys =
     -- launch dmenu
     , ("M-p", spawn "rofi -show run")
     -- launch firefox
-    , ("M-b", spawn "firefox")
+    , ("M-w", spawn "firefox")
     -- launch slock
     , ("M-S-l", spawn "slock")
     -- launch emacs
     , ("M-o", spawn "emacsclient -c -a 'emacs'")
     -- launch file manager
-    , ("M-e", spawn "nautilus")
+    , ("M-f", spawn "nautilus")
     -- Volume/Media
     , ("<XF86AudioLowerVolume>", spawn "amixer -q sset Master 5%-")
     , ("<XF86AudioRaiseVolume>", spawn "amixer -q sset Master 5%+")
@@ -146,9 +146,26 @@ myKeys =
     -- Scrot
     , ("M-s", spawn "scrot '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f'")
     , ("M-S-s", spawn "scrot -s '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f'")
+    -- Emacsclient
+    , ("M-e e", spawn (myEmacs))
+    -- Emacslient EMMS (music)
+    , ("M-e a", spawn (myEmacs ++ ("--eval '(emms)' --eval '(emms-play-directory-tree \"~/Music/\")'")))
+    -- Emacslient Ibuffer
+    , ("M-e b", spawn (myEmacs ++ ("--eval '(ibuffer)'")))
+    -- Emacslient Dired
+    , ("M-e d", spawn (myEmacs ++ ("--eval '(dired nil)'")))
+    -- Emacslient ERC (IRC)
+    , ("M-e i", spawn (myEmacs ++ ("--eval '(erc)'")))
+    -- Emacslient Elfeed (RSS)
+    , ("M-e n", spawn (myEmacs ++ ("--eval '(elfeed)'")))
+    -- Emacslient Eshell
+    , ("M-e s", spawn (myEmacs ++ ("--eval '(eshell)'")))
+    -- Emacslient Vterm
+    , ("M-e v", spawn (myEmacs ++ ("--eval '(+vterm/here nil)'")))
+    -- Emacslient EWW Browser
+    , ("M-e w", spawn (myEmacs ++ ("--eval '(doom/window-maximize-buffer(eww \"google.com\"))'")))
     ]
     ++
-
     --
     -- mod-[1..9], Switch to workspace N
     -- mod-shift-[1..9], Move client to workspace N
