@@ -14,6 +14,7 @@ import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Actions.CycleWS
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
+import XMonad.Layout.Spacing
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -38,7 +39,7 @@ myClickJustFocuses = False
 -- Width of the window border in pixels.
 --
 myBorderWidth :: Dimension
-myBorderWidth = 1
+myBorderWidth = 2
 
 -- modMask lets you specify which modkey you want to use. The default
 -- is mod1Mask ("left alt").  You may also consider using mod3Mask
@@ -164,6 +165,8 @@ myKeys =
     , ("M-e v", spawn (myEmacs ++ ("--eval '(+vterm/here nil)'")))
     -- Emacslient EWW Browser
     , ("M-e w", spawn (myEmacs ++ ("--eval '(doom/window-maximize-buffer(eww \"google.com\"))'")))
+    -- Emacslient open XMonad config file
+    , ("M-x", spawn (myEmacs ++ ("~/.xmonad/xmonad.hs")))
     ]
     ++
     --
@@ -206,10 +209,12 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = avoidStruts (tiled  ||| noBorders Full)
+myLayout = avoidStruts $
+  smartSpacing 5 $
+  (smartBorders tiled  ||| noBorders Full)
   where
      -- default tiling algorithm partitions the screen into two panes
-     tiled   = Tall nmaster delta ratio
+     tiled   =  Tall nmaster delta ratio
 
      -- The default number of windows in the master pane
      nmaster = 1
