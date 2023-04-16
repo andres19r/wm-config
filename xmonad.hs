@@ -92,6 +92,8 @@ myKeys =
     , ("<XF86AudioPlay>", spawn "playerctl play-pause")
     , ("<XF86AudioNext>", spawn "playerctl next")
     , ("<XF86AudioPrev>", spawn "playerctl previous")
+    , ("<XF86MonBrightnessUp>", spawn "light -A 10")
+    , ("<XF86MonBrightnessDown>", spawn "light -U 10")
     -- launch gmrun
     , ("M-S-p", spawn "gmrun")
     -- close focused window
@@ -295,6 +297,7 @@ myStartupHook = do
   spawnOnce "unclutter -idle 1 -root &"
   spawnOnce "nm-applet &"
   spawn "polybar -c ~/.config/polybar/config.ini"
+  spawn "setxkbmap -layout us -variant altgr-intl &"
   setWMName "LG3D"
 
 
