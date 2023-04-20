@@ -298,6 +298,9 @@ myStartupHook = do
   spawnOnce "nm-applet &"
   spawn "polybar -c ~/.config/polybar/config.ini"
   spawn "setxkbmap -layout us -variant altgr-intl &"
+  spawnOnce "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
+  spawnOnce "/usr/libexec/polkit-gnome-authentication-agent-1 &"
+
   setWMName "LG3D"
 
 
