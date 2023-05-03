@@ -112,6 +112,12 @@ myKeys =
     , ("M-j", windows W.focusDown)
     -- Move focus to the previous window
     , ("M-k", windows W.focusUp  )
+    -- Move to last workspace
+    , ("M-a", toggleWS)
+    -- Increase number of windows in the master area
+    , ("M-u", sendMessage (IncMasterN 1))
+    -- Decrease number of windows in the master area
+    , ("M-i", sendMessage (IncMasterN (-1)))
     -- Move focus to the previous window
     , ("M-S-<Tab>", windows W.focusUp  )
     -- Move focus to the master window
