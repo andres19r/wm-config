@@ -16,6 +16,7 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
 import XMonad.Layout.Spacing
 import XMonad.Hooks.EwmhDesktops
+import XMonad.Layout.FixedAspectRatio
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -76,7 +77,7 @@ myKeys =
   -- launch terminal
     [("M-<Return>",  spawn myTerminal)
     -- launch dmenu
-    , ("M-p", spawn "rofi -show run")
+    , ("M-p", spawn "rofi -show drun")
     -- launch firefox
     , ("M-w", spawn "firefox")
     -- launch slock
@@ -87,9 +88,12 @@ myKeys =
     , ("M-f", spawn "nautilus")
     -- Volume/Media
     , ("<XF86AudioLowerVolume>", spawn "amixer -q sset Master 5%-")
+    , ("M1-<Down>", spawn "amixer -q sset Master 5%-")
     , ("<XF86AudioRaiseVolume>", spawn "amixer -q sset Master 5%+")
+    , ("M1-<Up>", spawn "amixer -q sset Master 5%+")
     , ("<XF86AudioMute>", spawn "amixer set Master toggle")
     , ("<XF86AudioPlay>", spawn "playerctl play-pause")
+    , ("M1-p", spawn "playerctl play-pause")
     , ("<XF86AudioNext>", spawn "playerctl next")
     , ("<XF86AudioPrev>", spawn "playerctl previous")
     , ("<XF86MonBrightnessUp>", spawn "light -A 10")
@@ -101,9 +105,11 @@ myKeys =
      -- Rotate through the available layout algorithms
     , ("M-<Space>", sendMessage NextLayout)
     --  Reset the layouts on the current workspace to default
-    -- , ("M-S-<Space>", setLayout $ XMonad.layoutHook myConfig)
+    -- , ("M-S-<Space>", setLayout $ XMonad.layoutHook myLayout)
     -- Resize viewed windows to the correct size
-    , ("M-n", refresh)
+    , ("M-g", withFocused $ sendMessage . ResetRatio)
+    -- Toggle notifications
+    , ("M-n", spawn "dunstctl set-paused toggle")
     -- Move focus to the next window
     , ("M-<Tab>", windows W.focusDown)
     -- Move focus to the next window
@@ -141,7 +147,7 @@ myKeys =
     -- Toggle the status bar gap
     -- Use this binding with avoidStruts from Hooks.ManageDocks.
     -- See also the statusBar function from Hooks.DynamicLog.
-    -- , ("M-b", sendMessage ToggleStruts)
+    , ("M-b", sendMessage ToggleStruts)
     -- Quit xmonad
     , ("M-S-q", io (exitWith ExitSuccess))
     -- Restart xmonad
@@ -249,7 +255,7 @@ myLayout = avoidStruts $
 -- To match on the WM_NAME, you can use 'title' in the same way that
 -- 'className' and 'resource' are used below.
 --
-myManageHook = composeAll
+myManageHook = manageDocks <+> composeAll
     [ className =? "MPlayer"        --> doFloat
     , className =? "confirm"         --> doFloat
     , className =? "file_progress"   --> doFloat
@@ -296,12 +302,12 @@ myLogHook = dynamicLog
 --
 -- By default, do nothing.
 myStartupHook = do
-  spawnOnce "feh --randomize --bg-fill ~/Pictures/Wallpapers/*"
+  spawn "feh --randomize --bg-fill ~/Pictures/Wallpapers/*"
   spawnOnce "picom &"
   spawnOnce "xsetroot -cursor_name left_ptr &"
-  spawnOnce "/usr/bin/emacs --daemon &"
+  spawn "/usr/bin/emacs --daemon &"
   spawnOnce "unclutter -idle 1 -root &"
-  spawnOnce "nm-applet &"
+  spawn "nm-applet &"
   spawn "polybar -c ~/.config/polybar/config.ini"
   spawn "setxkbmap -layout us -variant altgr-intl &"
   spawnOnce "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
