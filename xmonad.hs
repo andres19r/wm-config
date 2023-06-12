@@ -17,6 +17,7 @@ import XMonad.Hooks.SetWMName
 import XMonad.Layout.Spacing
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Layout.FixedAspectRatio
+import XMonad.Util.Hacks
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -340,7 +341,7 @@ main = do
       -- hooks, layouts
         layoutHook         = myLayout,
         manageHook         = myManageHook,
-        handleEventHook    = myEventHook,
+        handleEventHook    = windowedFullscreenFixEventHook <> trayerPaddingXmobarEventHook <> myEventHook,
         logHook            = myLogHook,
         startupHook        = myStartupHook
     } `additionalKeysP` myKeys
