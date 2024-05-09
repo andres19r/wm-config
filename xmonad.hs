@@ -316,6 +316,9 @@ myStartupHook = do
   spawn "setxkbmap -layout us -variant altgr-intl &"
   spawnOnce "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
   spawnOnce "/usr/libexec/polkit-gnome-authentication-agent-1 &"
+  -- Enable tap to click on touchpad
+  spawnOnce "xinput set-prop 11 330 1"
+
 
   setWMName "LG3D"
 
