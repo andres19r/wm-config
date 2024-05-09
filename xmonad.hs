@@ -93,10 +93,13 @@ myKeys =
     , ("<XF86AudioRaiseVolume>", spawn "amixer -q sset Master 5%+")
     , ("M1-<Up>", spawn "amixer -q sset Master 5%+")
     , ("<XF86AudioMute>", spawn "amixer set Master toggle")
+    , ("M1-m", spawn "amixer set Master toggle")
     , ("<XF86AudioPlay>", spawn "playerctl play-pause")
     , ("M1-p", spawn "playerctl play-pause")
     , ("<XF86AudioNext>", spawn "playerctl next")
+    , ("M1-<Right>", spawn "playerctl next")
     , ("<XF86AudioPrev>", spawn "playerctl previous")
+    , ("M1-<Left>", spawn "playerctl previous")
     , ("<XF86MonBrightnessUp>", spawn "light -A 10")
     , ("<XF86MonBrightnessDown>", spawn "light -U 10")
     -- launch gmrun
