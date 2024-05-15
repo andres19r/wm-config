@@ -78,7 +78,7 @@ myKeys =
   -- launch terminal
     [("M-<Return>",  spawn myTerminal)
     -- launch dmenu
-    , ("M-p", spawn "rofi -show drun")
+    , ("M-p", spawn "rofi -show run")
     -- launch firefox
     , ("M-w", spawn "firefox")
     -- launch slock
@@ -86,7 +86,7 @@ myKeys =
     -- launch emacs
     , ("M-o", spawn "emacsclient -c -a 'emacs'")
     -- launch file manager
-    , ("M-f", spawn "nautilus")
+    , ("M-f", spawn "nemo")
     -- Volume/Media
     , ("<XF86AudioLowerVolume>", spawn "amixer -q sset Master 5%-")
     , ("M1-<Down>", spawn "amixer -q sset Master 5%-")
@@ -229,7 +229,7 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 -- which denotes layout choice.
 --
 myLayout = avoidStruts $
-  smartSpacing 5 $
+  smartSpacing 1 $
   (smartBorders tiled  ||| noBorders Full)
   where
      -- default tiling algorithm partitions the screen into two panes
@@ -318,6 +318,7 @@ myStartupHook = do
   spawnOnce "/usr/libexec/polkit-gnome-authentication-agent-1 &"
   -- Enable tap to click on touchpad
   spawnOnce "xinput set-prop 11 330 1"
+  spawnOnce "systemctl --user start docker-desktop"
 
 
   setWMName "LG3D"
