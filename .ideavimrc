@@ -1,0 +1,70 @@
+" .ideavimrc is a configuration file for IdeaVim plugin. It uses
+"   the same commands as the original .vimrc configuration.
+" You can find a list of commands here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+
+
+"" -- Suggested options --
+" Show a few lines of context around the cursor. Note that this makes the
+" text scroll if you mouse-click near the start or end of the window.
+set scrolloff=5
+
+" Do incremental searching.
+set incsearch
+
+let mapleader=" "
+" Don't use Ex mode, use Q for formatting.ction<RecentFiles>
+map Q gq
+imap jk <Esc>
+nmap <leader>pr <Action>(RecentFiles)
+nmap <leader>fs <Action>(SaveAll)
+nmap <leader>pf <Action>(SearchEverywhere)
+nmap <leader>cr <Action>(RenameElement)
+nmap <leader>cf <Action>(ReformatCode)
+nmap <leader>ee <Action>(SelectInProjectView)
+nmap <leader>ef <Action>(SelectIn)
+nmap <leader>fd <Action>(FindUsages)
+nmap <leader>fd <Action>(FindUsages)
+nmap <leader>j <Action>(NextTab)
+nmap <leader>k <Action>(PreviousTab)
+nmap <leader>ot <Action>(ActivateTerminalToolWindow)
+nmap <leader>bk <Action>(CloseContent)
+nmap <leader>ss <Action>(SplitHorizontally)
+nmap <leader>sv <Action>(SplitVertically)
+
+" --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
+
+" Highlight copied text
+Plug 'machakann/vim-highlightedyank'
+" Commentary plugin
+Plug 'tpope/vim-commentary'
+Plug 'easymotion/vim-easymotion'
+Plug 'justinmk/vim-sneak'
+Plug 'tpope/vim-surround'
+Plug 'terryma/vim-multiple-cursors'
+
+" Remap multiple-cursors shortcuts to match terryma/vim-multiple-cursors
+"nmap <C-n> <Plug>NextWholeOccurrence
+"xmap <C-n> <Plug>NextWholeOccurrence
+"nmap g<C-n> <Plug>NextOccurrence
+"xmap g<C-n> <Plug>NextOccurrence
+"xmap <C-x> <Plug>SkipOccurrence
+"xmap <C-p> <Plug>RemoveOccurrence
+
+" Note that the default <A-n> and g<A-n> shortcuts don't work on Mac due to dead keys.
+" <A-n> is used to enter accented text e.g. ñ
+" Feel free to pick your own mappings that are not affected. I like to use <leader>
+"nmap <leader><C-n> <Plug>AllWholeOccurrences
+"xmap <leader><C-n> <Plug>AllWholeOccurrences
+"nmap <leader>g<C-n> <Plug>AllOccurrences
+"xmap <leader>g<C-n> <Plug>AllOccurrences
+
+"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
+"" Map \r to the Reformat Code action
+"map \r <Action>(ReformatCode)
+
+"" Map <leader>d to start debug
+"map <leader>d <Action>(Debug)
+
+"" Map \b to toggle the breakpoint on the current line
+"map \b <Action>(ToggleLineBreakpoint)
