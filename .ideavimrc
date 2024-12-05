@@ -11,27 +11,107 @@ set scrolloff=5
 
 " Do incremental searching.
 set incsearch
+set clipboard+=unnamed
+set hlsearch
+set incsearch " Incrementally search while typing
+set ignorecase " Use smart case for searching
+set smartcase
 
 let mapleader=" "
 " Don't use Ex mode, use Q for formatting.ction<RecentFiles>
 map Q gq
 imap jk <Esc>
-nmap <leader>pr <Action>(RecentFiles)
-nmap <leader>fs <Action>(SaveAll)
-nmap <leader>pf <Action>(SearchEverywhere)
-nmap <leader>cr <Action>(RenameElement)
-nmap <leader>cf <Action>(ReformatCode)
-nmap <leader>ee <Action>(SelectInProjectView)
-nmap <leader>ef <Action>(SelectIn)
-nmap <leader>fd <Action>(FindUsages)
-nmap <leader>fd <Action>(FindUsages)
-nmap <leader>j <Action>(NextTab)
-nmap <leader>k <Action>(PreviousTab)
-nmap <leader>ot <Action>(ActivateTerminalToolWindow)
-nmap <leader>bk <Action>(CloseContent)
-nmap <leader>ss <Action>(SplitHorizontally)
-nmap <leader>sv <Action>(SplitVertically)
+"nmap <leader>pr <Action>(RecentFiles)
+"nmap <leader>w <Action>(SaveAll)
+"nmap <leader>pf <Action>(SearchEverywhere)
+"nmap <leader>cr <Action>(RenameElement)
+"nmap <leader>cf <Action>(ReformatCode)
+"nmap <leader>ee <Action>(SelectInProjectView)
+"nmap <leader>ef <Action>(SelectIn)
+"nmap <leader>fd <Action>(FindUsages)
+"nmap <leader>j <Action>(NextTab)
+"nmap <leader>k <Action>(PreviousTab)
+"nmap <leader>ot <Action>(ActivateTerminalToolWindow)
+"nmap <leader>bk <Action>(CloseContent)
+"nmap <leader>ss <Action>(SplitHorizontally)
+"nmap <leader>sv <Action>(SplitVertically)
 
+map J 4j
+map K 4k
+noremap H _
+noremap L $
+nnoremap <leader>j J
+vnoremap <leader>j J
+vnoremap < <gv;
+vnoremap > >gv
+sethandler <C-r> a:ide
+sethandler <C-i> a:ide
+sethandler <C-o> a:ide
+sethandler <C-a> a:vim
+sethandler <C-s> a:ide
+sethandler <C-x> a:ide
+sethandler <C-w> a:ide
+sethandler <C-d> a:ide
+sethandler <C-u> a:ide
+sethandler <C-q> a:ide
+sethandler <C-\> a:ide
+sethandler <C-v> a:ide
+sethandler <C-c> a:ide
+
+set idearefactormode=keep
+set ideajoin
+set surround
+set NERDTree
+set ideamarks
+set highlightedyank
+set easymotion
+set keep-english-in-normal
+
+noremap <leader>g :action Compare.SameVersion<CR>
+noremap <leader>a :action ToggleBookmark<CR>
+noremap <leader>z :action GotoNextBookmark<CR>
+noremap <leader>f :action GotoPreviousBookmark<CR>
+noremap <leader>b :action ToggleLineBreakpoint<CR>
+noremap <leader>e :action QuickEvaluateExpression<CR>
+"noremap <leader>g :action GithubCopyPathProvider<CR>
+noremap <leader>i :action Annotate<CR>
+noremap <leader>l :action SelectInProjectView<CR>
+noremap <leader>q :action RefactoringMenu<CR>
+noremap <leader>r :action RunClass<CR>
+noremap <leader>d :action DebugClass<CR>
+noremap <leader>hh :action SplitHorizontally<CR>
+noremap <leader>h :action MoveTabDown<CR>
+noremap <leader>vv :action SplitVertically<CR>
+noremap <leader>v :action MoveTabRight<CR>
+noremap <leader>c :action MaximizeEditorInSplit<CR>
+noremap <leader>t :action PrevSplitter<CR>
+noremap <leader>y :action NextSplitter<CR>
+noremap <leader>m :action VcsShowPrevChangeMarker<CR>
+noremap <leader>n :action VcsShowNextChangeMarker<CR>
+noremap <leader>o :action MoveEditorToOppositeTabGroup<CR>
+nnoremap <leader>w :action Unwrap<CR>
+vnoremap <leader>w :action SurroundWith<CR>
+nnoremap <leader><leader> mZ :action FindUsages<CR>
+noremap U :action ExpandAllRegions<CR>
+noremap u :action ExpandToLevel1<CR>
+noremap [ :action MethodDown<CR>
+noremap ] :action MethodUp<CR>
+
+" Harpoon keybindings
+" Setting harpoons
+nnoremap <leader><leader>1 :action SetHarpoon1<CR>
+nnoremap <leader><leader>2 :action SetHarpoon2<CR>
+nnoremap <leader><leader>3 :action SetHarpoon3<CR>
+nnoremap <leader><leader>4 :action SetHarpoon4<CR>
+nnoremap <leader><leader>5 :action SetHarpoon5<CR>
+nnoremap <leader>u :action ShowHarpoon<CR>
+
+" Navigationing harpoons
+noremap <leader>1 :action GotoHarpoon1<CR>
+noremap <leader>2 :action GotoHarpoon2<CR>
+noremap <leader>3 :action GotoHarpoon3<CR>
+noremap <leader>4 :action GotoHarpoon4<CR>
+noremap <leader>5 :action GotoHarpoon5<CR>
 " --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
 
 " Highlight copied text
