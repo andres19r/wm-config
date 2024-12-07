@@ -54,8 +54,10 @@ set highlightedyank
 set easymotion
 set keep-english-in-normal
 
+noremap <leader>n :noh<CR>
+
 noremap <leader>fr :action RecentFiles<CR>
-noremap <leader>ff :action SearchEverywhere<CR>
+noremap <leader>ff :action GotoFile<CR>
 "noremap <leader>ef <Action>(SelectIn)
 noremap <leader>fd :action FindUsages<CR>
 noremap <A-.> :action NextTab<CR>
@@ -82,10 +84,11 @@ noremap <leader>m :action MaximizeEditorInSplit<CR>
 noremap <leader>ca :action ShowIntentionActions<CR>
 noremap <leader>cr :action RenameElement<CR>
 noremap <leader>cf :action ReformatCode<CR>
+noremap <leader>cc :action CloseAllEditors<CR>
 noremap <leader>t :action PrevSplitter<CR>
 noremap <leader>y :action NextSplitter<CR>
-noremap <leader>gn :action VcsShowPrevChangeMarker<CR>
-noremap <leader>gp :action VcsShowNextChangeMarker<CR>
+noremap <leader>gp :action VcsShowPrevChangeMarker<CR>
+noremap <leader>gn :action VcsShowNextChangeMarker<CR>
 noremap <leader>oo :action MoveEditorToOppositeTabGroup<CR>
 nnoremap <leader>w :action Unwrap<CR>
 "vnoremap <leader>s :action SurroundWith<CR>
