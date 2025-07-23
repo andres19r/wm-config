@@ -12,6 +12,7 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Actions.CycleWS
+import XMonad.Actions.PhysicalScreens
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
 import XMonad.Layout.Spacing
@@ -84,9 +85,11 @@ myKeys =
     -- launch slock
     , ("M-S-l", spawn "slock")
     -- launch emacs
-    , ("M-o", spawn "emacsclient -c -a 'emacs'")
+    -- , ("M-e", spawn (myEmacs))
+    -- launch vscode
+    , ("M-o", spawn "code")
     -- launch file manager
-    , ("M-f", spawn "nemo")
+    , ("M-f", spawn "nautilus")
     -- Volume/Media
     , ("<XF86AudioLowerVolume>", spawn "amixer -q sset Master 5%-")
     , ("M1-<Down>", spawn "amixer -q sset Master 5%-")
@@ -160,6 +163,10 @@ myKeys =
     , ("M-.", nextScreen)
     -- Swi tch focus to prev monitor
     , ("M-,", prevScreen)
+    -- Swi tch focus to prev monitor
+    , ("M-S-,", shiftPrevScreen)
+    -- Switch focus to next monitor
+    , ("M-S-.", shiftNextScreen)
     -- Redshift
     , ("M-r", spawn "redshift -O 2400")
     , ("M-S-r", spawn "redshift -x")
@@ -173,7 +180,7 @@ myKeys =
     -- Emacslient Ibuffer
     , ("M-e b", spawn (myEmacs ++ ("--eval '(ibuffer)'")))
     -- Emacslient Dired
-    , ("M-e d", spawn (myEmacs ++ ("--eval '(dired nil)'")))
+    , ("M-e d", spawn (myEmacs ++ ("--eval '(dired \"~\")'")))
     -- Emacslient ERC (IRC)
     , ("M-e i", spawn (myEmacs ++ ("--eval '(erc)'")))
     -- Emacslient Elfeed (RSS)
@@ -184,6 +191,12 @@ myKeys =
     , ("M-e v", spawn (myEmacs ++ ("--eval '(+vterm/here nil)'")))
     -- Emacslient EWW Browser
     , ("M-e w", spawn (myEmacs ++ ("--eval '(doom/window-maximize-buffer(eww \"google.com\"))'")))
+    -- Emacslient open work files
+    , ("M-e k", spawn (myEmacs ++ ("--eval '(dired \"~/EKUPD\")'")))
+    -- Emacslient select project
+    , ("M-e j", spawn (myEmacs ++ ("--eval '(projectile-dired)'")))
+    -- Emacslient select project recent files
+    , ("M-e l", spawn (myEmacs ++ ("--eval '(projectile-switch-project)'")))
     -- Emacslient open XMonad config file
     , ("M-x", spawn (myEmacs ++ ("~/.xmonad/xmonad.hs")))
     ]
@@ -319,7 +332,7 @@ myStartupHook = do
   -- Enable tap to click on touchpad
   spawnOnce "xinput set-prop 11 330 1"
   spawnOnce "systemctl --user start docker-desktop"
-
+  spawnOnce "xrandr --output eDP-1 --mode 1920x1080 --pos 1920x228 --rotate normal --output HDMI-1 --primary --mode 1920x1080 --pos 0x0 --rotate normal"
 
   setWMName "LG3D"
 
