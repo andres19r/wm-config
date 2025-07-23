@@ -19,9 +19,20 @@ import XMonad.Layout.Spacing
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Layout.FixedAspectRatio
 import XMonad.Util.Hacks
+import Data.Maybe (listToMaybe)
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
+
+focusAndViewOtherScreen :: X ()
+focusAndViewOtherScreen = do
+  ws <- gets windowset
+  let visibles = W.visible ws
+  case visibles of
+    (other:_) -> do
+      let targetWorkspace = W.tag $ W.workspace other
+      windows $ W.greedyView targetWorkspace  -- aquí la magia
+    _ -> pure ()
 
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
@@ -116,7 +127,7 @@ myKeys =
     -- Resize viewed windows to the correct size
     , ("M-g", withFocused $ sendMessage . ResetRatio)
     -- Toggle notifications
-    , ("M-n", spawn "dunstctl set-paused toggle")
+    , ("M-S-n", spawn "dunstctl set-paused toggle")
     -- Move focus to the next window
     , ("M-<Tab>", windows W.focusDown)
     -- Move focus to the next window
@@ -127,6 +138,8 @@ myKeys =
     , ("M-k", windows W.focusUp  )
     -- Move to last workspace
     , ("M-a", toggleWS)
+    -- Move to last workspace
+    , ("M-n", focusAndViewOtherScreen)
     -- Increase number of windows in the master area
     , ("M-u", sendMessage (IncMasterN 1))
     -- Decrease number of windows in the master area
