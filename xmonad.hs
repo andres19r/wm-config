@@ -297,7 +297,11 @@ myManageHook = manageDocks <+> composeAll
     , className =? "pinentry-gtk-2"  --> doFloat
     , className =? "splash"          --> doFloat
     , className =? "toolbar"         --> doFloat
-    , className =? "Gimp"           --> doFloat
+    , className =? "Gimp"            --> doFloat
+    , className  =? "discord"        --> doShift "9"
+    , className  =? "Mattermost"     --> doShift "8"
+    , className  =? "Thunderbird"    --> doShift "8"
+    , className  =? "Geary" --> doShift "8"
     , resource  =? "desktop_window" --> doIgnore
     , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
     , isFullscreen -->  doFullFloat
