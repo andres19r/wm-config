@@ -22,8 +22,6 @@ let mapleader=" "
 map Q gq
 imap jk <Esc>
 
-map J 4j
-map K 4k
 noremap H _
 noremap L $
 nnoremap <leader>j J
@@ -37,7 +35,7 @@ sethandler <C-o> a:ide
 sethandler <C-a> a:vim
 sethandler <C-s> a:ide
 sethandler <C-x> a:ide
-sethandler <C-w> a:ide
+sethandler <C-w> a:vim
 sethandler <C-d> a:vim
 sethandler <C-u> a:vim
 sethandler <C-q> a:ide
@@ -54,14 +52,14 @@ set highlightedyank
 set easymotion
 set keep-english-in-normal
 
-noremap <leader>n :noh<CR>
-
-noremap <leader>fr :action RecentFiles<CR>
-noremap <leader>ff :action GotoFile<CR>
+noremap <leader>pr :action RecentFiles<CR>
+noremap <leader>pf :action GotoFile<CR>
 "noremap <leader>ef <Action>(SelectIn)
 noremap <leader>fd :action FindUsages<CR>
 noremap <A-.> :action NextTab<CR>
 noremap <A-,> :action PreviousTab<CR>
+noremap <C-n> :action EditorDown<CR>
+noremap <C-p> :action EditorUp<CR>
 noremap <leader>ot :action ActivateTerminalToolWindow<CR>
 noremap <leader>bk :action CloseContent<CR>
 noremap <leader>gc :action Compare.SameVersion<CR>
@@ -72,14 +70,22 @@ noremap <leader>zk :action ToggleLineBreakpoint<CR>
 noremap <leader>v :action QuickEvaluateExpression<CR>
 "noremap <leader>g :action GithubCopyPathProvider<CR>
 noremap <leader>i :action Annotate<CR>
+noremap K :action QuickJavaDoc<CR>
 noremap <leader>l :action SelectInProjectView<CR>
 noremap <leader>q :action RefactoringMenu<CR>
 noremap <leader>r :action RunClass<CR>
 noremap <leader>d :action DebugClass<CR>
-noremap <leader>hh :action SplitHorizontally<CR>
-noremap <leader>h :action MoveTabDown<CR>
-noremap <leader>vv :action SplitVertically<CR>
-noremap <leader>v :action MoveTabRight<CR>
+noremap <leader>ws :action SplitHorizontally<CR>
+noremap <leader>wh <C-w>h
+noremap <leader>wj <C-w>j
+noremap <leader>wk <C-w>k
+noremap <leader>wl <C-w>l
+noremap <leader>bd :q<CR>
+noremap <leader>bl :e #<CR>
+noremap <leader>h :noh<CR>
+noremap <leader>wJ :action MoveTabDown<CR>
+noremap <leader>wv :action SplitVertically<CR>
+noremap <leader>wL :action MoveTabRight<CR>
 noremap <leader>m :action MaximizeEditorInSplit<CR>
 noremap <leader>ca :action ShowIntentionActions<CR>
 noremap <leader>cr :action RenameElement<CR>
@@ -90,7 +96,7 @@ noremap <leader>y :action NextSplitter<CR>
 noremap <leader>gp :action VcsShowPrevChangeMarker<CR>
 noremap <leader>gn :action VcsShowNextChangeMarker<CR>
 noremap <leader>oo :action MoveEditorToOppositeTabGroup<CR>
-nnoremap <leader>w :action Unwrap<CR>
+"nnoremap <leader>w :action Unwrap<CR>
 "vnoremap <leader>s :action SurroundWith<CR>
 nnoremap <leader><leader> :action FindUsages<CR>
 "noremap U :action ExpandAllRegions<CR>
