@@ -1,0 +1,7 @@
+font-size = 11
+font-family = "CaskaydiaCove Nerd Font"
+window-decoration = false
+gtk-single-instance = false
+cursor-style = underline
+cursor-style-blink = false
+background-opacity = 0.95
