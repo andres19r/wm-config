@@ -100,14 +100,14 @@ myKeys =
     -- launch vscode
     , ("M-o", spawn "code")
     -- launch file manager
-    , ("M-f", spawn "nautilus")
+    , ("M-f", spawn "thunar")
     -- Volume/Media
-    , ("<XF86AudioLowerVolume>", spawn "amixer -q sset Master 5%-")
-    , ("M1-<Down>", spawn "amixer -q sset Master 5%-")
-    , ("<XF86AudioRaiseVolume>", spawn "amixer -q sset Master 5%+")
-    , ("M1-<Up>", spawn "amixer -q sset Master 5%+")
-    , ("<XF86AudioMute>", spawn "amixer set Master toggle")
-    , ("M1-m", spawn "amixer set Master toggle")
+    , ("<XF86AudioLowerVolume>", spawn "amixer -D pulse sset Master 5%-")
+    , ("M1-<Down>", spawn "amixer -D pulse sset Master 5%-")
+    , ("<XF86AudioRaiseVolume>", spawn "amixer -D pulse sset Master 5%+")
+    , ("M1-<Up>", spawn "amixer -D pulse sset Master 5%+")
+    , ("<XF86AudioMute>", spawn "amixer -D pulse set Master 1+ toggle")
+    , ("M1-m", spawn "amixer -D pulse set Master 1+ toggle")
     , ("<XF86AudioPlay>", spawn "playerctl play-pause")
     , ("M1-p", spawn "playerctl play-pause")
     , ("<XF86AudioNext>", spawn "playerctl next")
@@ -349,6 +349,8 @@ myStartupHook = do
   spawnOnce "xinput set-prop 11 330 1"
   spawnOnce "systemctl --user start docker-desktop"
   spawnOnce "xrandr --output eDP-1 --mode 1920x1080 --pos 1920x228 --rotate normal --output HDMI-1 --primary --mode 1920x1080 --pos 0x0 --rotate normal"
+  -- spawnOnce "kanata &"
+  spawnOnce "xset s off -dpms"
 
   setWMName "LG3D"
 

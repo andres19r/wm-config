@@ -62,6 +62,8 @@ noremap <C-n> :action EditorDown<CR>
 noremap <C-p> :action EditorUp<CR>
 noremap <leader>ot :action ActivateTerminalToolWindow<CR>
 noremap <leader>bk :action CloseContent<CR>
+noremap <leader>bK :action CloseAllEditors<CR>
+noremap <leader>bD :action CloseAllEditors<CR>
 noremap <leader>gc :action Compare.SameVersion<CR>
 noremap <leader>zz :action ToggleBookmark<CR>
 noremap <leader>zn :action GotoNextBookmark<CR>
@@ -71,7 +73,7 @@ noremap <leader>v :action QuickEvaluateExpression<CR>
 "noremap <leader>g :action GithubCopyPathProvider<CR>
 noremap <leader>i :action Annotate<CR>
 noremap K :action QuickJavaDoc<CR>
-noremap <leader>l :action SelectInProjectView<CR>
+noremap <leader>e :action SelectInProjectView<CR>
 noremap <leader>q :action RefactoringMenu<CR>
 noremap <leader>r :action RunClass<CR>
 noremap <leader>d :action DebugClass<CR>
@@ -88,11 +90,15 @@ noremap <leader>wv :action SplitVertically<CR>
 noremap <leader>wL :action MoveTabRight<CR>
 noremap <leader>m :action MaximizeEditorInSplit<CR>
 noremap <leader>ca :action ShowIntentionActions<CR>
+noremap <leader>gg :action Generate<CR>
 noremap <leader>cr :action RenameElement<CR>
 noremap <leader>cf :action ReformatCode<CR>
 noremap <leader>cc :action CloseAllEditors<CR>
-noremap <leader>t :action PrevSplitter<CR>
-noremap <leader>y :action NextSplitter<CR>
+noremap <leader>nc :action NewClass<CR>
+noremap <leader>nd :action NewDir<CR>
+" noremap <leader>t :action PrevSplitter<CR>
+" noremap <leader>y :action NextSplitter<CR>
+noremap <leader>th :action ToggleInlayHintsGloballyAction<CR>
 noremap <leader>gp :action VcsShowPrevChangeMarker<CR>
 noremap <leader>gn :action VcsShowNextChangeMarker<CR>
 noremap <leader>oo :action MoveEditorToOppositeTabGroup<CR>
